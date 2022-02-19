@@ -1,0 +1,147 @@
+<html>
+    <header>
+        <title>Button Demo</title>
+    </header>
+
+    <script type="text/javascript" defer>
+
+        /**
+
+            ~~~ Script written by Thomas Kirrane ~~~
+
+            EMail: txkirrane@txkirrane.dev
+            GitHub: @txkirrane
+            Personal Site: txkirrane.dev
+
+            ~~~                                  ~~~
+
+            - This JavaScript snippet allows you to play a sound and alter the appearance of
+            an HTML <img> element when clicked and/or hovered.
+
+        */
+
+        function buttonClicked(buttonId, audioURL, targetURL, normalImageURL){
+
+            // Play sound with given URL
+            playSound(audioURL);
+
+            // Open URL in a new tab
+            window.open(targetURL, "_blank");
+
+            // Run buttonHoverEnded
+            buttonHoverEnded(normalImageURL);
+        
+        }
+
+        function buttonHoverStarted(buttonId, audioURL, hoverImageURL){
+
+            // Get button from page
+            var button = document.getElementById(buttonId);
+
+            /* Weird browser behvior */
+            // Play sound with given URL
+            //playSound(audioURL);
+
+            // Set img URL source to hoverImage
+            button.src = hoverImageURL;
+
+        }
+
+        function buttonHoverEnded(buttonId, normalImageURL){
+
+            // Get button from page
+            var button = document.getElementById(buttonId);
+
+            // Set img src to normalImage
+            button.src = normalImageURL;
+
+        }
+
+        function playSound(audioURL){
+
+            // Create a new audio instance with passed in URL, play sound.
+            var player = new Audio(audioURL);
+            player.play();
+
+        }
+
+    </script>
+    <style>
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+
+            box-sizing: border-box;
+
+            margin: 0px;
+            pad: 0px;
+
+            display: flex;
+        }
+
+        .buttonContainer {
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .imageButton {
+            width: 200px;
+            height: 200px;
+            
+            border-radius: 50%;
+
+            object-fit: contain;
+
+            box-shadow: none;
+        }
+
+        .imageButton:hover {
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+
+            box-shadow: 0px 0px 5px 5px red;;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    </style>
+    <body>
+        <div
+            class="buttonContainer"
+        >
+            <div>
+                <h2>Click Me!</h2>
+                <p>Button demo for <a href="https://saltlakecity.craigslist.org/cpg/d/salt-lake-city-need-work-done-on-my/7444704786.html" target="_blank">Craigslist ad</a></p>
+            </div>
+            <img
+                id="button1"
+                class="imageButton"
+
+                src="buttonNormal.png"
+
+                style="background-color: lightgray;"
+
+                onclick="buttonClicked('button1', 'buttonSFX_click.mp3', 'https:\/\/txkirrane.dev', 'buttonNormal.png')"
+                onmouseenter="buttonHoverStarted('button1', 'buttonSFX_hover.mp3', 'buttonHover.png')"
+                onmouseleave="buttonHoverEnded('button1', 'buttonNormal.png')"
+            />
+        </div>
+    </body>
+</html>
